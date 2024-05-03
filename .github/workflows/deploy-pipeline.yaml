@@ -1,6 +1,9 @@
 name: Deploy Lambda Function
 on: push
 
+env:
+  REPO_NAME: "${{ github.event.repository.name }}"
+
 jobs:
 
   lint:
@@ -16,6 +19,7 @@ jobs:
         run: pip install flake8
       - name: Lint with flake8
         run: |
+            echo "${{ env.REPO_NAME }}"
             cd function
             # Select identifies which errors should cause the job to fail
             flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
